@@ -63,7 +63,10 @@ try {
 These are the formats currently supported by [module_url]. This list might grow
 in the future.
 
-## Local
+## Misc
+
+- [`unknown`](formats/unknown.ts): catch-all for unknown formats
+  <br>pattern: (matches any valid URL)
 
 - [`local`](formats/local.ts): local file system
   <br>pattern: `file:///**/<name>[@<tag>]/<path>`

@@ -1,6 +1,7 @@
 import * as DenoX from "./formats/deno_x.ts";
 import * as DenoStd from "./formats/deno_std.ts";
 import * as Local from "./formats/local.ts";
+import * as Unknown from "./formats/unknown.ts";
 import { ModuleUrl, Parser } from "./types.ts";
 
 export * from "./types.ts";
@@ -19,7 +20,5 @@ export function parse(url: string, path?: string): ModuleUrl {
       // try next
     }
   }
-  throw new Error(
-    `Not a valid URL: <${url}>. The supported CDNs are deno.land/x, deno.land/std, and the local file system.`,
-  );
+  return Unknown.parse(url);
 }

@@ -6,12 +6,13 @@ import { ModuleUrl, Parser } from "./types.ts";
 import * as DenoX from "./formats/deno_x.ts";
 import * as DenoStd from "./formats/deno_std.ts";
 import * as Local from "./formats/local.ts";
+import * as Unknown from "./formats/unknown.ts";
 
 type Spec = {
   parser: Parser;
   input: [string] | [string, string];
   format: string;
-  result?: Omit<ModuleUrl, "format">;
+  result?: Omit<ModuleUrl, "format" | "toString">;
 };
 
 const keys: (keyof ModuleUrl)[] = [
@@ -23,6 +24,17 @@ const keys: (keyof ModuleUrl)[] = [
 ];
 
 const specs: Spec[] = [
+  {
+    format: "unknown",
+    parser: Unknown.parse,
+    input: ["funky://mod.ts"],
+    result: {
+      base: "",
+      name: "",
+      path: "",
+      tag: "",
+    },
+  },
   {
     format: "local",
     parser: Local.parse,
@@ -69,6 +81,11 @@ const specs: Spec[] = [
   },
   // TEST ERRORS
   {
+    format: "unknown",
+    parser: Unknown.parse,
+    input: ["not a URL"],
+  },
+  {
     format: "local",
     parser: Local.parse,
     input: ["https://deno.land/x/example/mod.ts"],
@@ -100,6 +117,9 @@ specs.forEach((spec) => {
       assertThrows(actual, Error);
     });
   } else {
+    Deno.test(`${spec.format} toString returns input`, () => {
+      assertEquals(String(actual()), spec.input[0]);
+    });
     keys.forEach((key) => {
       const result = spec.result as ModuleUrl;
       const expected = key === "format" ? spec.format : result[key];

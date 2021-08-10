@@ -9,6 +9,8 @@ export type ModuleUrl = {
   base: string;
   /** Path relative to the base URL of the repository. */
   path: string;
+  /** Returns a string representation of the URL. */
+  toString(): string;
 };
 
 /**

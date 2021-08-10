@@ -54,5 +54,6 @@ export function parse(url: string, rel = "."): ModuleUrl {
     name,
     tag,
     path,
+    toString: () => url,
   };
 }

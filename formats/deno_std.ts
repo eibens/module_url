@@ -15,5 +15,6 @@ export function parse(url: string): ModuleUrl {
     tag: match[2],
     name: match[3],
     path: match[4],
+    toString: () => url,
   };
 }
