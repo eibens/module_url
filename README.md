@@ -4,7 +4,7 @@
 module URL. It provides parsers for various [formats](#formats). It is
 implemented in TypeScript for Deno.
 
-[![License][license-shield]](LICENSE) [![Deno doc][deno-doc-shield]][deno-doc]
+[![License][license-shield]](LICENSE)
 [![Deno module][deno-land-shield]][deno-land]
 [![Github
 tag][github-shield]][github] [![Build][build-shield]][build]
@@ -94,7 +94,5 @@ in the future.
 [coverage]: https://codecov.io/gh/eibens/module_url
 [build]: https://github.com/eibens/module_url/actions/workflows/ci.yml
 [build-shield]: https://img.shields.io/github/workflow/status/eibens/module_url/ci?logo=github&label
-[deno-doc]: https://doc.deno.land/https/deno.land/x/module_url/example.ts
-[deno-doc-shield]: https://img.shields.io/badge/doc-informational?logo=deno
 [deno-land]: https://deno.land/x/module_url
 [deno-land-shield]: https://img.shields.io/badge/x/module__url-informational?logo=deno&label
