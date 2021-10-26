@@ -82,7 +82,7 @@ in the future.
 ## GitHub
 
 - [`github`](formats/github.ts): raw files on [GitHub](https://github.com)
-  <br>pattern: `https://raw.githubusercontent.com/*/<name>/[@<tag>]/<path>`
+  <br>pattern: `https://raw.githubusercontent.com/*/<name>/<tag>/<path>`
 
 <!-- references -->
 
