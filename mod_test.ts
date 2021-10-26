@@ -2,17 +2,29 @@ import {
   assertEquals,
   assertThrows,
 } from "https://deno.land/std@0.103.0/testing/asserts.ts";
-import { ModuleUrl, Parser } from "./types.ts";
-import * as DenoX from "./formats/deno_x.ts";
-import * as DenoStd from "./formats/deno_std.ts";
-import * as Local from "./formats/local.ts";
-import * as Unknown from "./formats/unknown.ts";
+import { ModuleUrl } from "./types.ts";
+// deno-lint-ignore camelcase
+import * as deno_x from "./formats/deno_x.ts";
+// deno-lint-ignore camelcase
+import * as deno_std from "./formats/deno_std.ts";
+import * as github from "./formats/github.ts";
+import * as local from "./formats/local.ts";
+import * as unknown from "./formats/unknown.ts";
 
 type Spec = {
-  parser: Parser;
+  format: keyof typeof formats;
   input: [string] | [string, string];
-  format: string;
   result?: Omit<ModuleUrl, "format" | "toString">;
+};
+
+const formats = {
+  // deno-lint-ignore camelcase
+  deno_x,
+  // deno-lint-ignore camelcase
+  deno_std,
+  github,
+  local,
+  unknown,
 };
 
 const keys: (keyof ModuleUrl)[] = [
@@ -23,93 +35,15 @@ const keys: (keyof ModuleUrl)[] = [
   "base",
 ];
 
-const specs: Spec[] = [
-  {
-    format: "unknown",
-    parser: Unknown.parse,
-    input: ["funky://mod.ts"],
-    result: {
-      base: "",
-      name: "",
-      path: "",
-      tag: "",
-    },
-  },
-  {
-    format: "local",
-    parser: Local.parse,
-    input: ["file:///example@1.2.3/mod.ts"],
-    result: {
-      base: "file:///example@1.2.3/",
-      tag: "1.2.3",
-      name: "example",
-      path: "mod.ts",
-    },
-  },
-  {
-    format: "local",
-    parser: Local.parse,
-    input: ["file:///example/deep/mod.ts", ".."],
-    result: {
-      base: "file:///example/",
-      tag: "",
-      name: "example",
-      path: "deep/mod.ts",
-    },
-  },
-  {
-    format: "deno_x",
-    parser: DenoX.parse,
-    input: ["https://deno.land/x/example@1.2.3/mod.ts"],
-    result: {
-      base: "https://deno.land/x/example@1.2.3/",
-      tag: "1.2.3",
-      path: "mod.ts",
-      name: "example",
-    },
-  },
-  {
-    format: "deno_std",
-    parser: DenoStd.parse,
-    input: ["https://deno.land/std@1.2.3/example/mod.ts"],
-    result: {
-      base: "https://deno.land/std@1.2.3/example/",
-      tag: "1.2.3",
-      path: "mod.ts",
-      name: "example",
-    },
-  },
-  // TEST ERRORS
-  {
-    format: "unknown",
-    parser: Unknown.parse,
-    input: ["not a URL"],
-  },
-  {
-    format: "local",
-    parser: Local.parse,
-    input: ["https://deno.land/x/example/mod.ts"],
-  },
-  {
-    format: "local",
-    parser: Local.parse,
-    input: ["file://example/deep/mod.ts", "../secret"],
-  },
-  {
-    format: "deno_x",
-    parser: DenoX.parse,
-    input: ["https://deno.land/std/example/mod.ts"],
-  },
-  {
-    format: "deno_std",
-    parser: DenoStd.parse,
-    input: ["https://deno.land/x/example/mod.ts"],
-  },
-];
+// Load test specification from JSON file.
+const specs: Spec[] = JSON.parse(
+  await Deno.readTextFile("mod_test.json"),
+);
 
 specs.forEach((spec) => {
   const actual = () => {
-    return spec.parser(spec.input[0], spec.input[1]);
+    const format = formats[spec.format];
+    return format.parse(spec.input[0], spec.input[1]);
   };
   if (!spec.result) {
     const title = `${spec.format} throws Error"`;

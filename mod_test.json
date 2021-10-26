@@ -1,0 +1,112 @@
+[
+  {
+    "format": "unknown",
+    "input": [
+      "funky://mod.ts"
+    ],
+    "result": {
+      "base": "",
+      "name": "",
+      "path": "",
+      "tag": ""
+    }
+  },
+  {
+    "format": "local",
+    "input": [
+      "file:///example@1.2.3/mod.ts"
+    ],
+    "result": {
+      "base": "file:///example@1.2.3/",
+      "tag": "1.2.3",
+      "name": "example",
+      "path": "mod.ts"
+    }
+  },
+  {
+    "format": "local",
+    "input": [
+      "file:///example/deep/mod.ts",
+      ".."
+    ],
+    "result": {
+      "base": "file:///example/",
+      "tag": "",
+      "name": "example",
+      "path": "deep/mod.ts"
+    }
+  },
+  {
+    "format": "deno_x",
+    "input": [
+      "https://deno.land/x/example@1.2.3/mod.ts"
+    ],
+    "result": {
+      "base": "https://deno.land/x/example@1.2.3/",
+      "tag": "1.2.3",
+      "path": "mod.ts",
+      "name": "example"
+    }
+  },
+  {
+    "format": "deno_std",
+    "input": [
+      "https://deno.land/std@1.2.3/example/mod.ts"
+    ],
+    "result": {
+      "base": "https://deno.land/std@1.2.3/example/",
+      "tag": "1.2.3",
+      "path": "mod.ts",
+      "name": "example"
+    }
+  },
+  {
+    "format": "github",
+    "input": [
+      "https://raw.githubusercontent.com/user/example/1.2.3/mod.ts"
+    ],
+    "result": {
+      "base": "https://raw.githubusercontent.com/user/",
+      "tag": "1.2.3",
+      "path": "mod.ts",
+      "name": "example"
+    }
+  },
+  {
+    "format": "unknown",
+    "input": [
+      "not a URL"
+    ]
+  },
+  {
+    "format": "local",
+    "input": [
+      "https://deno.land/x/example/mod.ts"
+    ]
+  },
+  {
+    "format": "local",
+    "input": [
+      "file://example/deep/mod.ts",
+      "../secret"
+    ]
+  },
+  {
+    "format": "deno_x",
+    "input": [
+      "https://deno.land/std/example/mod.ts"
+    ]
+  },
+  {
+    "format": "deno_std",
+    "input": [
+      "https://deno.land/x/example/mod.ts"
+    ]
+  },
+  {
+    "format": "github",
+    "input": [
+      "https://github.com/eibens/module_url/master/cli.ts"
+    ]
+  }
+]

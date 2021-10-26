@@ -79,6 +79,11 @@ in the future.
 - [`deno_std`](formats/deno_std.ts): [Deno standard] library modules
   <br>pattern: `https://deno.land/std[@<tag>]/<name>/<path>`
 
+## GitHub
+
+- [`github`](formats/github.ts): raw files on [GitHub](https://github.com)
+  <br>pattern: `https://raw.githubusercontent.com/*/<name>/[@<tag>]/<path>`
+
 <!-- references -->
 
 [module_url]: #
