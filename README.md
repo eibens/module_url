@@ -32,7 +32,7 @@ import { parse } from "https://deno.land/x/module_url/mod.ts";
 
 // Parse a URL.
 const url = "https://deno.land/x/module_url@v1.2.3/mod.ts";
-const { format, name, path, root, tag } = parse(url);
+const { format, name, path, base, tag } = parse(url);
 
 // Test the results.
 console.assert(format === "deno_x");
