@@ -1,3 +1,3 @@
-import { cli } from "https://deno.land/x/edcb@v0.9.0-alpha.2/cli.ts";
+import { cli } from "https://deno.land/x/edcb@v1.0.0-alpha.8/mod.ts";
 
 await cli();
